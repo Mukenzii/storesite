@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block navbar %}
+{% include 'components/_navbar.html' %}
+{% endblock navbar %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box-element">
+                <a href="{% url 'cart' %}" class="btn btn-primary">Savatga qaytish</a>
+                <hr>
+                <h3>Buyurtmadagi mahsulotlar</h3>
+                <hr>
+                <div class="cart-row">
+                    <div style="flex:2"></div>
+                    <div style="flex:2">Mahsulot</div>
+                    <div style="flex:1">Narxi</div>
+                    <div style="flex:1">Qiymati</div>
+                    <div style="flex:1">Umumiy</div>
+                </div>
+                {% for item in products %}
+                {% include 'store/components/_cart_row.html' %}
+                {% endfor %}
+
+                <h5>Mahsulotlar soni: {{ order.get_cart_total_quantity }}</h5>
+                <h5>Umumiy qiymati: {{ order.get_cart_total_price|floatformat:2 }}</h5>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="box-element">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div id="user-info">
+                        <hr>
+                        <p>Sizning ma'lumotingiz</p>
+                        <hr>
+                        <div class="form-field">
+                            {{ customer_form.name }}
+                        </div>
+                        <div class="form-field">
+                            {{ customer_form.email }}
+                        </div>
+                    </div>
+                    <div id="shipping-info">
+                        <hr>
+                        <p>Manzil</p>
+                        <hr>
+                        {% for field in shipping_form %}
+                        <div class="form-field">
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="btn btn-success" type="submit">Buyurtmani tastiqlash</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block navbar %}
+{% include 'components/_navbar.html' %}
+{% endblock navbar %}
+
+{% block main %}
+<section class="category_products">
+    <div class="container">
+        <h3 class="section__title text-center my-5">Tanlangan Mahsulotlar</h3>
+        <div class="row  d-flex justify-content-around">
+            {% for product in products %}
+            {% include 'store/components/_product_card.html' %}
+            {% empty %}
+            <p class="text-center">Sizda hozircha hech narsa yo'q!</p>
+            <img src="https://media.istockphoto.com/id/1296187581/photo/empty-open-cardboard-box-high-angle-view.jpg?s=612x612&w=0&k=20&c=PbPYTIUhEZzPejKlu01w1WUkcZ0RpG9-g_hXqeHEGWQ="
+                 alt="">
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock main %}

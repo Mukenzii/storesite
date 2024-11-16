@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block navbar %}
+{% include 'components/_navbar.html' %}
+{% endblock navbar %}
+
+
+{% block header_text %}
+{% include 'components/_header_text.html' %}
+{% endblock header_text %}
+
+{% block header_poster %}
+{% include 'components/_header_poster.html' %}
+{% endblock header_poster %}
+
+{% block main %}
+{% include 'store/components/_guarantees.html' %}
+
+{% for category in categories %}
+<section class="products-section products_section">
+    <!-- SECTION QUARTZ EDITION START -->
+    {% for subcategory in category.subcategory.all %}
+    <h2 class="main_title text-center">{{ subcategory.title }}</h2>
+    <div class="container">
+        <div class="row">
+            {% for product in subcategory.products.all %}
+            {% include 'store/components/_product_card.html' %}
+            {% endfor %}
+        </div>
+    </div>
+    <!-- SECTION QUARTZ EDITION END -->
+    {% endfor %}
+</section>
+{% endfor %}
+
+{% include 'store/components/_slider.html' %}
+{% include 'store/components/_email_form.html' %}
+
+{% endblock main %}
+
+{% block footer %}
+{% include 'components/_footer.html' %}
+{% endblock footer %}
